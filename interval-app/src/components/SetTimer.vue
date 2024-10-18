@@ -18,7 +18,6 @@
     </div>
     <p class="minutes-label">minutes</p>
 
-    <!-- Ny container för checkboxar och knapp -->
     <div class="options-and-button">
       <div class="interval-options">
         <label>
@@ -31,7 +30,7 @@
         </label>
       </div>
 
-      <button class="start-button" @click="startTimer">START TIMER</button>
+      <button class="start-button" @click="startMainTimer">START TIMER</button>
     </div>
   </div>
 </template>
@@ -64,8 +63,16 @@ export default {
         this.time = 1;
       }
     },
-    startTimer() {
-      console.log("Timer started with:", this.time, "minutes");
+
+    startMainTimer() {
+      this.$router.push({
+        path: "/main-timer/analog",
+        query: {
+          time: this.time,
+          intervals: this.intervals,
+          breaks: this.breaks,
+        },
+      });
     },
     openMenu() {
       console.log("Menu opened");
@@ -130,11 +137,11 @@ export default {
   text-align: center;
 }
 
-/* Ny container för checkboxar och startknapp */
+/* Ny container för checkboxar och startknapp (För att aligna rätt) */
 .options-and-button {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Säkerställ vänsterjustering */
+  align-items: flex-start;
   width: 100%;
   max-width: 250px;
   margin-top: 68px;
@@ -144,7 +151,7 @@ export default {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Vänsterjustera checkboxarna */
+  align-items: flex-start;
 }
 
 .interval-options label {
