@@ -55,6 +55,7 @@ export default {
       intervals: false,
       breaks: false,
       showMenu: false,
+      selectedTimerType: "AnalogTimer", // Default till AnalogTimer
     };
   },
   methods: {
@@ -77,11 +78,12 @@ export default {
     },
     startMainTimer() {
       this.$router.push({
-        path: "/main-timer/analog",
+        path: "/main-timer",
         query: {
           time: this.time,
           intervals: this.intervals,
           breaks: this.breaks,
+          timerType: this.selectedTimerType, // Använd vald timer typ från menyn
         },
       });
     },
@@ -89,8 +91,8 @@ export default {
       this.showMenu = !this.showMenu;
     },
     changeTimerType(type) {
-      this.currentTimer = type;
-      this.toggleMenu();
+      this.selectedTimerType = type; // Sätt den valda timer-typen från menyn
+      this.toggleMenu(); // Stäng menyn efter val
     },
   },
 };

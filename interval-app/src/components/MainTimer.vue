@@ -47,7 +47,7 @@ export default {
       breakTime: 300,
       originalTime: 0,
       showMenu: false,
-      currentTimer: "AnalogTimer", // Default timer type
+      currentTimer: this.$route.query.timerType || "AnalogTimer", // Sätt till vald typ eller default till AnalogTimer
     };
   },
   methods: {
@@ -55,6 +55,7 @@ export default {
       this.originalTime = minutes * 60;
       this.intervalActive = interval;
       this.breakActive = breaks;
+
       this.time = this.formatTime(minutes * 60);
 
       this.timer.start({
@@ -106,8 +107,8 @@ export default {
       this.showMenu = !this.showMenu;
     },
     changeTimerType(type) {
-      this.currentTimer = type;
-      this.toggleMenu(); // Close menu after changing timer type
+      this.currentTimer = type; // Byt vilken timer som visas
+      this.showMenu = !this.showMenu; // Stäng menyn?
     },
     formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);
@@ -118,7 +119,8 @@ export default {
     },
   },
   created() {
-    const { time, intervals, breaks } = this.$route.query;
+    const { time, intervals, breaks, timerType } = this.$route.query;
+    this.currentTimer = timerType || "AnalogTimer"; // Sätt till vald timer-typ eller default
     this.startTimer(parseInt(time), intervals === "true", breaks === "true");
   },
 };

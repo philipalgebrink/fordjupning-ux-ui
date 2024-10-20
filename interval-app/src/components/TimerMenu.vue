@@ -8,10 +8,10 @@
       />
     </div>
     <ul class="menu-items">
-      <li @click="navigateTo('analog')">Analog Timer</li>
-      <li @click="navigateTo('digital')">Digital Timer</li>
-      <li @click="navigateTo('text')">Text Timer</li>
-      <li @click="navigateTo('circles')">Circles Timer</li>
+      <li @click="selectTimer('AnalogTimer')">Analog Timer</li>
+      <li @click="selectTimer('DigitalTimer')">Digital Timer</li>
+      <li @click="selectTimer('TextTimer')">Text Timer</li>
+      <li @click="selectTimer('CirclesTimer')">Circles Timer</li>
     </ul>
   </div>
 </template>
@@ -19,9 +19,8 @@
 <script>
 export default {
   methods: {
-    navigateTo(view) {
-      this.$emit("close"); // Stäng menyn
-      this.$router.push({ name: view, query: this.$route.query }); // Navigera till rätt vy med befintlig tid
+    selectTimer(timerType) {
+      this.$emit("changeTimer", timerType);
     },
   },
 };
@@ -50,12 +49,6 @@ export default {
   align-items: center;
 }
 
-.menu-header h2 {
-  color: white;
-  font-size: 24px;
-  margin-left: 10px;
-}
-
 .menu-header img {
   width: 30px;
   height: 30px;
@@ -75,9 +68,5 @@ export default {
   margin: 20px 0;
   cursor: pointer;
   transition: color 0.3s ease;
-}
-
-.menu-items li:hover {
-  color: #ccc;
 }
 </style>
