@@ -1,6 +1,10 @@
 <template>
   <div>
-    <router-view :time="time" @abort="abortTimer" />
+    <router-view
+      :time="time"
+      :intervalActive="intervalActive"
+      @abort="abortTimer"
+    />
   </div>
 </template>
 
@@ -23,6 +27,10 @@ export default {
       this.originalTime = minutes * 60;
       this.intervalActive = interval;
       this.breakActive = breaks;
+
+      // Ställ in tiden manuellt innan timern startar
+      this.time = this.formatTime(minutes * 60);
+
       this.timer.start({
         countdown: true,
         startValues: { minutes: minutes },
@@ -68,7 +76,17 @@ export default {
       this.time = "00:00";
       this.$router.push("/set-timer");
     },
+    formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${String(minutes).padStart(2, "0")}:${String(
+        remainingSeconds
+      ).padStart(2, "0")}`;
+    },
   },
-  created() {},
+  created() {
+    const { time, intervals, breaks } = this.$route.query;
+    this.startTimer(parseInt(time), intervals === "true", breaks === "true");
+  },
 };
 </script>

@@ -40,9 +40,9 @@ export default {
   name: "SetTimer",
   data() {
     return {
-      time: 10,
-      intervals: false,
-      breaks: false,
+      time: 10, // Startvärde för minuter
+      intervals: false, // Om intervaller är aktiverade
+      breaks: false, // Om paus är aktiverad
     };
   },
   methods: {
@@ -66,11 +66,11 @@ export default {
 
     startMainTimer() {
       this.$router.push({
-        path: "/main-timer/analog",
+        path: "/main-timer/analog", // Navigera till den analoga vyen först
         query: {
-          time: this.time,
-          intervals: this.intervals,
-          breaks: this.breaks,
+          time: this.time, // Skicka med tiden (antal minuter)
+          intervals: this.intervals, // Skicka med om intervaller är aktiverade
+          breaks: this.breaks, // Skicka med om pauser är aktiverade
         },
       });
     },
