@@ -1,7 +1,7 @@
 <template>
   <div class="set-timer-screen">
     <div class="menu-icon">
-      <img src="@/assets/navicon.svg" alt="Menu Icon" @click="openMenu" />
+      <img src="@/assets/navicon.svg" alt="Menu Icon" @click="toggleMenu" />
     </div>
 
     <div class="timer-settings">
@@ -31,18 +31,30 @@
       </div>
 
       <button class="start-button" @click="startMainTimer">START TIMER</button>
+
+      <!-- Timer Menu -->
+      <TimerMenu
+        v-if="showMenu"
+        @close="toggleMenu"
+        @changeTimer="changeTimerType"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import TimerMenu from "@/components/TimerMenu.vue";
+
 export default {
-  name: "SetTimer",
+  components: {
+    TimerMenu,
+  },
   data() {
     return {
-      time: 10, // Startvärde för minuter
-      intervals: false, // Om intervaller är aktiverade
-      breaks: false, // Om paus är aktiverad
+      time: 10,
+      intervals: false,
+      breaks: false,
+      showMenu: false,
     };
   },
   methods: {
@@ -63,19 +75,22 @@ export default {
         this.time = 1;
       }
     },
-
     startMainTimer() {
       this.$router.push({
-        path: "/main-timer/analog", // Navigera till den analoga vyen först
+        path: "/main-timer/analog",
         query: {
-          time: this.time, // Skicka med tiden (antal minuter)
-          intervals: this.intervals, // Skicka med om intervaller är aktiverade
-          breaks: this.breaks, // Skicka med om pauser är aktiverade
+          time: this.time,
+          intervals: this.intervals,
+          breaks: this.breaks,
         },
       });
     },
-    openMenu() {
-      console.log("Menu opened");
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
+    changeTimerType(type) {
+      this.currentTimer = type;
+      this.toggleMenu();
     },
   },
 };
@@ -137,7 +152,6 @@ export default {
   text-align: center;
 }
 
-/* Ny container för checkboxar och startknapp (För att aligna rätt) */
 .options-and-button {
   display: flex;
   flex-direction: column;

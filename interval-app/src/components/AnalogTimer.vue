@@ -1,12 +1,5 @@
 <template>
   <div class="analog-clock">
-    <div class="menu-and-title">
-      <div class="menu-icon">
-        <img src="@/assets/navicon.svg" alt="Menu Icon" @click="openMenu" />
-      </div>
-      <div v-if="intervalActive" class="title">interval</div>
-    </div>
-
     <div class="clock-face">
       <div
         v-for="n in 60"
@@ -19,7 +12,6 @@
         :style="{ transform: 'rotate(' + secondRotation + 'deg)' }"
       ></div>
     </div>
-    <button @click="$emit('abort')" class="abort-button">ABORT TIMER</button>
   </div>
 </template>
 
@@ -48,35 +40,6 @@ export default {
   align-items: center;
   height: 100vh;
   background-color: #eeeeee;
-}
-
-.menu-and-title {
-  position: absolute;
-  top: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.menu-icon {
-  margin-left: 20px;
-}
-
-.menu-icon img {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-
-.title {
-  font-size: 22px;
-  font-weight: bold;
-  margin-right: 20px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #222222;
 }
 
 .clock-face {
@@ -109,18 +72,5 @@ export default {
   left: 50%;
   transform-origin: 0% 50%;
   transition: transform 0s linear;
-}
-
-.abort-button {
-  position: absolute;
-  bottom: 48px;
-  padding: 20px 40px;
-  font-size: 16px;
-  color: #222222;
-  background-color: transparent;
-  border: 1px solid #222222;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 </style>
