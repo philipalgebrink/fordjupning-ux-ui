@@ -27,9 +27,17 @@ const routes = [
       { path: "analog", component: AnalogTimer },
       { path: "digital", component: DigitalTimer },
       { path: "text", component: TextTimer },
-      { path: "alarm", component: AlarmView },
-      { path: "break", component: BreakView },
     ],
+  },
+  {
+    path: "/alarm",
+    name: "AlarmView",
+    component: AlarmView, // Separat rutt för AlarmView
+  },
+  {
+    path: "/break",
+    name: "BreakView",
+    component: BreakView, // Separat rutt för BreakView
   },
 ];
 
