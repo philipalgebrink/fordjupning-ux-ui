@@ -8,8 +8,12 @@
         :style="{ transform: 'rotate(' + n * 6 + 'deg)' }"
       ></div>
       <div
-        class="hand"
+        class="second-hand"
         :style="{ transform: 'rotate(' + secondRotation + 'deg)' }"
+      ></div>
+      <div
+        class="minute-hand"
+        :style="{ transform: 'rotate(' + minuteRotation + 'deg)' }"
       ></div>
     </div>
   </div>
@@ -17,16 +21,16 @@
 
 <script>
 export default {
-  props: ["time", "intervalActive"],
-  methods: {
-    openMenu() {
-      console.log("Menu opened");
-    },
-  },
+  props: ["time"],
   computed: {
     secondRotation() {
       const [minutes, seconds] = this.time.split(":").map(Number);
       return 360 - (minutes * 60 + seconds) * 6 - 90;
+    },
+    minuteRotation() {
+      const [minutes, seconds] = this.time.split(":").map(Number);
+      const totalMinutes = minutes + seconds / 60;
+      return totalMinutes * 6 - 90;
     },
   },
 };
@@ -62,10 +66,21 @@ export default {
   border-radius: 5px;
 }
 
-.hand {
+.second-hand {
   width: 45%;
   height: 2px;
-  background-color: #222222;
+  background-color: #ff0000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0% 50%;
+  transition: transform 0s linear;
+}
+
+.minute-hand {
+  width: 35%;
+  height: 4px;
+  background-color: #000000;
   position: absolute;
   top: 50%;
   left: 50%;
