@@ -1,6 +1,6 @@
 <template>
   <div class="text-timer">
-    <div class="time-text">{{ timeInWords }}</div>
+    <div class="time-text" v-html="timeInWords"></div>
   </div>
 </template>
 
@@ -15,14 +15,21 @@ export default {
       const minutesText = numToWords(minutes).toUpperCase();
       const secondsText = numToWords(seconds).toUpperCase();
 
+      // Om det är 1 sekund kvar, skriv det som EN istället för ETT
+      if (seconds === 1) {
+        return `${minutesText} MINUT${
+          minutes > 1 ? "ER" : ""
+        }<br>& EN<br>SEKUND KVAR`;
+      }
+
       // Om det är 0 sekunder kvar, visa bara minuter
       if (seconds === 0) {
-        return `${minutesText} MINUT${minutes > 1 ? "ER" : ""} KVAR`;
+        return `${minutesText} MINUT${minutes > 1 ? "ER" : ""}<br>KVAR`;
       }
 
       return `${minutesText} MINUT${
         minutes > 1 ? "ER" : ""
-      } OCH ${secondsText} SEKUND${seconds > 1 ? "ER" : ""} KVAR`;
+      }<br>OCH ${secondsText}<br>SEKUND${seconds > 1 ? "ER" : ""} KVAR`;
     },
   },
 };
@@ -34,9 +41,15 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-size: 36px;
+  font-size: 30px;
   font-weight: bold;
-  text-align: center;
   color: #222222;
+  text-align: left;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+.time-text {
+  min-height: 100px;
 }
 </style>
