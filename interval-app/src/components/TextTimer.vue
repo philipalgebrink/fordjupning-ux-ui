@@ -16,7 +16,9 @@ export default {
       const secondsText = numToWords(seconds).toUpperCase();
 
       // Om det är 1 sekund kvar, skriv det som EN istället för ETT
-      if (seconds === 1) {
+      if (seconds === 1 && minutes === 0) {
+        return `EN<br>SEKUND KVAR`;
+      } else if (seconds === 1) {
         return `${minutesText} MINUT${
           minutes > 1 ? "ER" : ""
         }<br>& EN<br>SEKUND KVAR`;
@@ -27,9 +29,23 @@ export default {
         return `${minutesText} MINUT${minutes > 1 ? "ER" : ""}<br>KVAR`;
       }
 
-      return `${minutesText} MINUT${
-        minutes > 1 ? "ER" : ""
-      }<br>OCH ${secondsText}<br>SEKUND${seconds > 1 ? "ER" : ""} KVAR`;
+      // Om det är bara sekunder kvar, visa bara sekunder
+      if (minutes === 0) {
+        return `${secondsText}<br>SEKUND${seconds > 1 ? "ER" : ""} KVAR`;
+      }
+
+      // Om det är 1 minut kvar, skriv det som EN istället för ETT
+      if (minutes === 1) {
+        return `EN MINUT <br> ${
+          seconds > 0
+            ? `& ${secondsText} <br> SEKUND${seconds > 1 ? "ER" : ""}`
+            : ""
+        } KVAR`;
+      } else {
+        return `${minutesText} MINUT${
+          minutes > 1 ? "ER" : ""
+        } <br> & ${secondsText} <br> SEKUND${seconds > 1 ? "ER" : ""} KVAR`;
+      }
     },
   },
 };
@@ -45,7 +61,7 @@ export default {
   font-weight: bold;
   color: #222222;
   text-align: left;
-  max-width: 300px;
+  max-width: 350px;
   line-height: 1.5;
 }
 
