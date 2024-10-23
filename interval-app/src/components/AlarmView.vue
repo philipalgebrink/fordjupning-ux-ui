@@ -27,7 +27,7 @@ export default {
         easing: "easeOutQuad",
         duration: 2000,
         loop: true,
-        delay: anime.stagger(500),
+        delay: anime.stagger(222),
       });
 
       anime({
@@ -58,9 +58,10 @@ export default {
 }
 
 .circle-container {
-  position: relative;
-  left: -75px; /* Våran klock image är 150px så för att få i mitten -75px */
-  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 38%;
+  left: 33%;
+  transform: translate(-33%, -33%);
   z-index: 0;
 }
 
@@ -70,9 +71,9 @@ export default {
   height: 150px;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 33%;
+  left: 33%;
+  transform: translate(-33%, -33%);
 }
 
 .icon-container {
