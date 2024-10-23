@@ -104,7 +104,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 130vh;
   width: 100vw;
   background-color: #f5f5f5;
   position: relative;
@@ -160,11 +160,10 @@ export default {
   align-items: flex-start;
   width: 100%;
   max-width: 250px;
-  margin-top: 68px;
+  margin-top: 128px;
 }
 
 .interval-options {
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -189,10 +188,12 @@ input[type="checkbox"] {
   padding: 15px 40px;
   font-size: 20px;
   border: 2px solid #000;
+  border-radius: 5px;
   background-color: transparent;
   cursor: pointer;
   display: inline-block;
   align-self: flex-start;
   width: 100%;
+  margin-top: 20px;
 }
 </style>
