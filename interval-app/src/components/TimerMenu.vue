@@ -11,7 +11,6 @@
       <li @click="selectTimer('AnalogTimer')">Analog Timer</li>
       <li @click="selectTimer('DigitalTimer')">Digital Timer</li>
       <li @click="selectTimer('TextTimer')">Text Timer</li>
-      <li @click="selectTimer('CirclesTimer')">Circles Timer</li>
     </ul>
   </div>
 </template>
