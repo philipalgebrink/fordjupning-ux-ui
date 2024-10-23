@@ -22,11 +22,11 @@
       <div class="interval-options">
         <label>
           <input type="checkbox" v-model="intervals" />
-          intervals (VG)
+          intervals
         </label>
         <label :style="{ visibility: intervals ? 'visible' : 'hidden' }">
           <input type="checkbox" v-model="breaks" />
-          5 min break / interval (VG)
+          5 min break / interval
         </label>
       </div>
 
