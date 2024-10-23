@@ -1,5 +1,7 @@
 <template>
   <div class="timer-view">
+    <BreakView v-if="showBreak" @skipBreak="restartTimer" />
+
     <div class="menu-and-title">
       <div class="menu-icon">
         <img src="@/assets/navicon.svg" alt="Menu Icon" @click="toggleMenu" />
@@ -30,6 +32,7 @@ import TimerMenu from "@/components/TimerMenu.vue";
 import AnalogTimer from "@/components/AnalogTimer.vue";
 import DigitalTimer from "@/components/DigitalTimer.vue";
 import TextTimer from "@/components/TextTimer.vue";
+import BreakView from "@/components/BreakView.vue"; // Lägg till din BreakView här
 
 export default {
   components: {
@@ -37,6 +40,7 @@ export default {
     AnalogTimer,
     DigitalTimer,
     TextTimer,
+    BreakView,
   },
   data() {
     return {
@@ -46,6 +50,7 @@ export default {
       breakActive: false,
       breakTime: 300,
       originalTime: 0,
+      showBreak: false,
       showMenu: false,
       currentTimer: this.$route.query.timerType || "AnalogTimer", // Sätt till vald typ eller default till AnalogTimer
     };
@@ -81,16 +86,11 @@ export default {
       }
     },
     startBreak() {
-      this.timer.start({
-        countdown: true,
-        startValues: { seconds: this.breakTime },
-      });
-      this.timer.addEventListener("targetAchieved", () => {
-        this.restartTimer();
-      });
-      this.$router.push("/break");
+      this.timer.stop(); // Stoppa den befintliga timern
+      this.showBreak = true; // Visa BreakView
     },
     restartTimer() {
+      this.showBreak = false; // Dölj BreakView om den är synlig
       this.timer.reset();
       this.startTimer(
         this.originalTime / 60,

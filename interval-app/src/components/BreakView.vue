@@ -25,16 +25,35 @@
 
 <script>
 import anime from "animejs/lib/anime.es.js";
+import Timer from "easytimer.js";
 
 export default {
   data() {
     return {
-      breakTime: "5:00",
+      breakTime: "1:00",
+      timer: new Timer(),
     };
   },
   methods: {
     skipBreak() {
-      this.$router.push("/main-timer");
+      // Emit a custom event to notify the parent component to restart the timer
+      this.$emit("skipBreak");
+    },
+    startBreakTimer() {
+      this.timer.start({
+        countdown: true,
+        startValues: { minutes: 1 },
+      });
+
+      this.timer.addEventListener("secondsUpdated", () => {
+        this.breakTime = this.timer
+          .getTimeValues()
+          .toString(["minutes", "seconds"]);
+      });
+
+      this.timer.addEventListener("targetAchieved", () => {
+        this.skipBreak();
+      });
     },
     startAnimations() {
       anime({
@@ -48,8 +67,10 @@ export default {
       });
     },
   },
+
   mounted() {
     this.startAnimations();
+    this.startBreakTimer();
   },
 };
 </script>
@@ -60,10 +81,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100vh;
   background-color: #1e1e1e;
   color: white;
-  position: relative;
+  z-index: 10;
   overflow: hidden;
 }
 
