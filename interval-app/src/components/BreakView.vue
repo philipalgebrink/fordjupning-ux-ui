@@ -30,19 +30,18 @@ import Timer from "easytimer.js";
 export default {
   data() {
     return {
-      breakTime: "1:00",
+      breakTime: "5:00",
       timer: new Timer(),
     };
   },
   methods: {
     skipBreak() {
-      // Emit a custom event to notify the parent component to restart the timer
       this.$emit("skipBreak");
     },
     startBreakTimer() {
       this.timer.start({
         countdown: true,
-        startValues: { minutes: 1 },
+        startValues: { minutes: 5 },
       });
 
       this.timer.addEventListener("secondsUpdated", () => {
@@ -94,9 +93,9 @@ export default {
 
 .circle-container {
   position: absolute;
-  top: 29%;
+  top: 32%;
   left: 33%;
-  transform: translate(-33%, -33%);
+  transform: translateX(-50%);
   z-index: 0;
 }
 
@@ -106,9 +105,9 @@ export default {
   height: 150px;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  top: 33%;
-  left: 33%;
-  transform: translate(-33%, -33%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .pause-icon {
@@ -132,6 +131,8 @@ export default {
 }
 
 .skip-button {
+  position: absolute;
+  bottom: 48px;
   padding: 15px 40px;
   font-size: 16px;
   background-color: transparent;
